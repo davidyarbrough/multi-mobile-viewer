@@ -18,7 +18,7 @@ A web application for testing multiple web apps simultaneously in mobile-sized v
 - **Quality-of-Life Enhancements:**
   - Adding an instance expands and focuses the URL input for fast entry.
   - Press Enter in the URL field to refresh the instance.
-  - Device/browser/user agent management is centralized in `src/utils/DeviceUtils.js`.
+  - Easily switch between light and dark themes using the "Dark Mode" toggle in the sidebar.
 
 ## Development
 - Run `npm install` in the project directory.
