@@ -6,7 +6,7 @@ const browserOptions = ['Chrome', 'Safari'];
 
 import { useRef } from 'react';
 
-function InstanceConfigDropdown({ inst, idx, handleChange, autoFocus }) {
+function InstanceConfigDropdown({ inst, idx, handleChange, autoFocus, onAutoFocus }) {
   const [urlInput, setUrlInput] = useState(inst.url || '');
 
   // Keep urlInput in sync with inst.url (e.g. when switching instances)
@@ -44,7 +44,10 @@ function InstanceConfigDropdown({ inst, idx, handleChange, autoFocus }) {
             style={{ flex: 1, marginTop: 2 }}
             placeholder="https://example.com"
             ref={input => {
-              if (autoFocus && input) input.focus();
+              if (autoFocus && input) {
+                input.focus();
+                if (onAutoFocus) onAutoFocus();
+              }
             }}
             onKeyDown={e => {
               if (e.key === 'Enter') handleUrlFetch();
@@ -86,6 +89,7 @@ function InstanceConfigDropdown({ inst, idx, handleChange, autoFocus }) {
 
 function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setScale }) {
   const [openIdx, setOpenIdx] = useState(null);
+  const [justAddedIdx, setJustAddedIdx] = useState(null);
 
   const handleChange = (idx, field, value) => {
     const updated = instances.map((inst, i) => i === idx ? { ...inst, [field]: value } : inst);
@@ -121,7 +125,8 @@ function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setSca
                 inst={inst}
                 idx={idx}
                 handleChange={handleChange}
-                autoFocus={idx === instances.length - 1}
+                autoFocus={justAddedIdx === idx}
+                onAutoFocus={() => setJustAddedIdx(null)}
               />
             )}
           </div>
@@ -130,6 +135,7 @@ function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setSca
           setInstances(prev => {
             const next = [...prev, { name: '', url: '', device: deviceOptions[0], browser: browserOptions[0] }];
             setOpenIdx(next.length - 1);
+            setJustAddedIdx(next.length - 1);
             return next;
           });
         }}>
