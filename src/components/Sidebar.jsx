@@ -4,7 +4,9 @@ import './Sidebar.css';
 const deviceOptions = ['iPhone 12', 'Google Pixel 5'];
 const browserOptions = ['Chrome', 'Safari'];
 
-function InstanceConfigDropdown({ inst, idx, handleChange }) {
+import { useRef } from 'react';
+
+function InstanceConfigDropdown({ inst, idx, handleChange, autoFocus }) {
   const [urlInput, setUrlInput] = useState(inst.url || '');
 
   // Keep urlInput in sync with inst.url (e.g. when switching instances)
@@ -41,14 +43,20 @@ function InstanceConfigDropdown({ inst, idx, handleChange }) {
             onChange={e => setUrlInput(e.target.value)}
             style={{ flex: 1, marginTop: 2 }}
             placeholder="https://example.com"
+            ref={input => {
+              if (autoFocus && input) input.focus();
+            }}
+            onKeyDown={e => {
+              if (e.key === 'Enter') handleUrlFetch();
+            }}
           />
           <button
             type="button"
             style={{ marginLeft: 2, padding: '0 10px', fontWeight: 'bold' }}
             onClick={handleUrlFetch}
-            aria-label="Load URL"
+            aria-label="Refresh URL"
           >
-            &gt;
+            &#x21BB;
           </button>
         </div>
       </label>
@@ -113,11 +121,18 @@ function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setSca
                 inst={inst}
                 idx={idx}
                 handleChange={handleChange}
+                autoFocus={idx === instances.length - 1}
               />
             )}
           </div>
         ))}
-        <button className="add-btn" onClick={() => setInstances([...instances, { name: '', url: '', device: deviceOptions[0], browser: browserOptions[0] }])}>
+        <button className="add-btn" onClick={() => {
+          setInstances(prev => {
+            const next = [...prev, { name: '', url: '', device: deviceOptions[0], browser: browserOptions[0] }];
+            setOpenIdx(next.length - 1);
+            return next;
+          });
+        }}>
           + Add Instance
         </button>
         <div style={{ margin: '1rem 0', padding: '0 1rem' }}>
