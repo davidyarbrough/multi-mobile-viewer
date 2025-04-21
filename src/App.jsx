@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import TitleBar from './components/TitleBar';
-import Viewer from './components/Viewer';
+import Sidebar from './components/Sidebar.jsx';
+import TitleBar from './components/TitleBar.jsx';
+import Viewer from './components/Viewer.jsx';
 import './App.css';
 
 function App() {
@@ -24,7 +24,6 @@ function App() {
           )}
           {instances.map((inst, idx) => (
             <React.Fragment key={idx}>
-              {/* Import Viewer at the top: import Viewer from './components/Viewer'; */}
               <Viewer
                 url={inst.url || ''}
                 device={inst.device || 'iPhone 12'}
