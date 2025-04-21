@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 
-const deviceOptions = ['iPhone 12', 'Google Pixel 5'];
-const browserOptions = ['Chrome', 'Safari'];
+import { deviceOptions, browserOptions } from '../utils/DeviceUtils';
 
 import { useRef } from 'react';
 
