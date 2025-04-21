@@ -99,13 +99,6 @@ function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setSca
     <aside className="sidebar">
       <div className="sidebar-header">
         <h2>Viewers</h2>
-        <button
-          className="dark-toggle"
-          onClick={() => setDarkMode(!darkMode)}
-          aria-label="Toggle dark mode"
-        >
-          {darkMode ? '🌙' : '☀️'}
-        </button>
       </div>
       <div className="instance-list">
         {instances.length === 0 && <div className="empty">No instances</div>}
@@ -154,6 +147,16 @@ function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setSca
             <option value="0.75">0.75x</option>
             <option value="0.5">0.5x</option>
           </select>
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <input
+              type="checkbox"
+              id="dark-mode-toggle"
+              checked={darkMode}
+              onChange={e => setDarkMode(e.target.checked)}
+              style={{ accentColor: '#555' }}
+            />
+            <label htmlFor="dark-mode-toggle" style={{ margin: 0, cursor: 'pointer' }}>Dark Mode</label>
+          </div>
         </div>
       </div>
     </aside>
