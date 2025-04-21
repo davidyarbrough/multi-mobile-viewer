@@ -7,8 +7,21 @@ const devicePresets = {
   // Add more devices as needed
 };
 
+// User agent strings for each device/browser combo
+const userAgents = {
+  'iPhone 12:Safari': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
+  'Google Pixel 5:Chrome': 'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.210 Mobile Safari/537.36',
+  // Add more as needed
+};
+
 function Viewer({ url, device = 'iPhone 12', browser = 'Chrome', config = {} }) {
   const preset = devicePresets[device] || devicePresets['iPhone 12'];
+  const uaKey = `${device}:${browser}`;
+  const userAgent = userAgents[uaKey] || '';
+  const proxySrc = url
+    ? `/proxy?url=${encodeURIComponent(url)}&ua=${encodeURIComponent(userAgent)}`
+    : '';
+
   return (
     <div
       className={`viewer-frame ${config.darkMode ? 'dark' : ''}`}
@@ -24,7 +37,7 @@ function Viewer({ url, device = 'iPhone 12', browser = 'Chrome', config = {} }) 
       </div>
       <iframe
         title={url}
-        src={url}
+        src={proxySrc}
         className="viewer-iframe"
         style={{
           width: '100%',
