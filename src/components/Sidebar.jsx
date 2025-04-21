@@ -54,11 +54,24 @@ function InstanceConfigDropdown({ inst, idx, handleChange, autoFocus, onAutoFocu
           />
           <button
             type="button"
-            style={{ marginLeft: 2, padding: '0 10px', fontWeight: 'bold' }}
             onClick={handleUrlFetch}
             aria-label="Refresh URL"
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '0 2px',
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              color: '#bbb',
+              fontSize: 20
+            }}
           >
-            &#x21BB;
+            {/* SVG refresh icon for clarity */}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 10a6 6 0 1 1 2.1 4.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+              <path d="M2.5 14.5v-4h4" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+            </svg>
           </button>
         </div>
       </label>
