@@ -32,12 +32,7 @@ function App() {
               />
             </React.Fragment>
           ))}
-          <button
-            className="main-add-btn"
-            onClick={() => setInstances([...instances, { name: '', url: '', device: 'iPhone 12', browser: 'Chrome' }])}
-          >
-            + Add Viewer
-          </button>
+
         </div>
       </div>
     </div>

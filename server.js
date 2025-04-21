@@ -23,7 +23,14 @@ app.get('/proxy', async (req, res) => {
       },
       redirect: 'follow',
     });
-    response.headers.forEach((v, k) => res.setHeader(k, v));
+    response.headers.forEach((v, k) => {
+      // Strip X-Frame-Options, CSP, Content-Encoding, and Content-Length
+      if (!['x-frame-options', 'content-security-policy', 'content-encoding', 'content-length'].includes(k.toLowerCase())) {
+        res.setHeader(k, v);
+      }
+    });
+    // Set a permissive CSP to allow embedding
+    res.setHeader('Content-Security-Policy', "frame-ancestors *");
     res.status(response.status);
     response.body.pipe(res);
   } catch (err) {
