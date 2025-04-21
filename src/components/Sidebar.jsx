@@ -76,7 +76,7 @@ function InstanceConfigDropdown({ inst, idx, handleChange }) {
   );
 }
 
-function Sidebar({ darkMode, setDarkMode, instances, setInstances }) {
+function Sidebar({ darkMode, setDarkMode, instances, setInstances, scale, setScale }) {
   const [openIdx, setOpenIdx] = useState(null);
 
   const handleChange = (idx, field, value) => {
@@ -120,6 +120,21 @@ function Sidebar({ darkMode, setDarkMode, instances, setInstances }) {
         <button className="add-btn" onClick={() => setInstances([...instances, { name: '', url: '', device: deviceOptions[0], browser: browserOptions[0] }])}>
           + Add Instance
         </button>
+        <div style={{ margin: '1rem 0', padding: '0 1rem' }}>
+          <label htmlFor="scaling-tool" style={{ display: 'block', marginBottom: 4 }}>Scale:</label>
+          <select
+            id="scaling-tool"
+            value={String(scale)}
+            onChange={e => setScale(Number(e.target.value))}
+            style={{ width: '100%' }}
+          >
+            <option value="1.5">1.5x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1">1x</option>
+            <option value="0.75">0.75x</option>
+            <option value="0.5">0.5x</option>
+          </select>
+        </div>
       </div>
     </aside>
   );

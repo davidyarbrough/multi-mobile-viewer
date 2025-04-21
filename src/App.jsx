@@ -7,6 +7,7 @@ import './App.css';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [instances, setInstances] = useState([]);
+  const [scale, setScale] = useState(1);
 
   return (
     <div className={darkMode ? 'app dark' : 'app'}>
@@ -15,6 +16,8 @@ function App() {
         setDarkMode={setDarkMode}
         instances={instances}
         setInstances={setInstances}
+        scale={scale}
+        setScale={setScale}
       />
       <div className="main-content">
         <TitleBar />
@@ -29,6 +32,7 @@ function App() {
                 device={inst.device || 'iPhone 12'}
                 browser={inst.browser || 'Chrome'}
                 config={{ darkMode }}
+                scale={scale}
               />
             </React.Fragment>
           ))}
